@@ -9,6 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
     <url>https://github.com/needle4k/needle4k</url>
     <inceptionYear>2023</inceptionYear>
+    <name>needle4k</name>
 
     <description>
         needle4k is a light-weight framework for testing isolated Jakarta EE components outside the container.
@@ -47,9 +48,13 @@
         </developer>
     </developers>
 
-    <properties>
-        <project.scm.id>github</project.scm.id>
+    <scm>
+        <connection>scm:git:git://github.com/needle4k/needle4k.git</connection>
+        <developerConnection>scm:git:ssh://github.com:needle4k/needle4k.git</developerConnection>
+        <url>https://github.com/needle4k/needle4k</url>
+    </scm>
 
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
