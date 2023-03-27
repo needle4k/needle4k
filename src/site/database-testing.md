@@ -3,7 +3,7 @@
 When unit-testing your services, it is usually recommended to mock calls to DAOs oder database dependent services.
 However, you will also need to test against a real database, e.g. to make sure that your queries work as expected.
 
-Again, take a look at the [quickstart project](https://github.com/needle4j/needle4k-quickstart) for ready-to-use examples.
+Again, take a look at the [quickstart project](https://github.com/needle4k/needle4k-quickstart) for ready-to-use examples.
 
 ## Database Testcases
 
@@ -22,8 +22,8 @@ The following listing below shows a complete example of a `persistence.xml` file
     <persistence-unit name="TestDataModel" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>org.needle4k.quickstart.user.Person</class>
-        <class>org.needle4k.quickstart.user.Address</class>
+        <class>io.github.needle4k.quickstart.user.Person</class>
+        <class>io.github.needle4k.quickstart.user.Address</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver"/>
@@ -115,12 +115,12 @@ The following operation are provided by default:
 
  Class                                                  | Description                                                                                                                       
 --------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------
- org.needle4k.db.operation.ExecuteScriptOperation       | Execute sql scripts during test setup and tear down. A `/before.sql` and `/after.sql` script has to be provided on the classpath. 
- org.needle4k.db.operation.h2.H2DeleteOperation         | Deletes all rows of all tables of the H2 database.                                                                                
- org.needle4k.db.operation.hsql.HSQLDeleteOperation`    | Deletes all rows of all tables of the HSQL database.                                                                              
- org.needle4k.db.operation.derby.DerbyLDeleteOperation` | Deletes all rows of all tables of the Derby database.                                                                             
+ io.github.needle4k.db.operation.ExecuteScriptOperation       | Execute sql scripts during test setup and tear down. A `/before.sql` and `/after.sql` script has to be provided on the classpath. 
+ io.github.needle4k.db.operation.h2.H2DeleteOperation         | Deletes all rows of all tables of the H2 database.                                                                                
+ io.github.needle4k.db.operation.hsql.HSQLDeleteOperation`    | Deletes all rows of all tables of the HSQL database.                                                                              
+ io.github.needle4k.db.operation.derby.DerbyLDeleteOperation` | Deletes all rows of all tables of the Derby database.                                                                             
 
-To use own Database operation implementations, extend the abstract base class `org.needle4k.db.operation.AbstractDBOperation`
+To use own Database operation implementations, extend the abstract base class `io.github.needle4k.db.operation.AbstractDBOperation`
 and configured the "db.operation" property in the `needle.properties` file.
 
 ## Injectable database resources

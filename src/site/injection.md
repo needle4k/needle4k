@@ -64,7 +64,7 @@ All standard Java EE annotations and any additionally configured injection annot
 testcase.
 
 ```java
-import org.needle4k.db.TransactionHelper;
+import io.github.needle4k.db.TransactionHelper;
 
 public class AuthenticatorTest
 {
@@ -105,7 +105,7 @@ in the `needle.properties`.
     custom.injection.annotations=org.jboss.seam.annotations.In, org.jboss.seam.annotations.Logger
 
 It is also possible to implement custom injection providers. A custom injection provider must implement
-the `org.needle4k.injection.InjectionProvider` interface and be registered.
+the `io.github.needle4k.injection.InjectionProvider` interface and be registered.
 
 ```java
 public class CurrentUserInjectionProvider implements InjectionProvider<User>
@@ -141,7 +141,7 @@ A custom injection provider can be provided for a specific test or as a global p
 
 If you need to configure multiple InjectionProviders at once, it is possible to use the InjectionProviderInstancesSupplier. It
 returns a Set of InjectionProviders. A custom injection provider supplier must implement the
-`org.needle4k.injection.InjectionProviderInstancesSupplier` interface.
+`io.github.needle4k.injection.InjectionProviderInstancesSupplier` interface.
 
 ```java
 public class FooBarInjectionProviderInstancesSupplier implements InjectionProviderInstancesSupplier

@@ -1,5 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/needle4k/needle4j.png)](https://travis-ci.org/needle4j/needle4k)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.needle4k/needle4k/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.needle4k/needle4k)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.needle4k/needle4k/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.needle4k/needle4k)
 
 ![Banner](src/site/images/banner.png)
 
@@ -11,7 +10,7 @@ Using needle4k it is easy to configure your tests in order to automatically inje
 needle4k is a [Kotlin-based](https://kotlinlang.org/) rewrite and upgraded version of the well-known
 [needle4j](https://needle4j.org/) framework.**
 
-There is a [quickstart project](https://github.com/needle4j/needle4k-quickstart) demonstrating all features.
+There is a [quickstart project](https://github.com/needle4k/needle4k-quickstart) demonstrating all features.
 
 # Core features
 
@@ -37,7 +36,7 @@ Add the following dependencies to your pom.xml file to get started using **needl
 
 ```xml
 <dependency>
-    <groupId>org.needle4k</groupId>
+    <groupId>io.github.needle4k</groupId>
     <artifactId>needle4k</artifactId>
     <version>4.0.1</version>
     <scope>test</scope>
@@ -48,7 +47,7 @@ Use this dependency if you are using Jakarta EE &geq; 9:
 
 ```xml
 <dependency>
-    <groupId>org.needle4k</groupId>
+    <groupId>io.github.needle4k</groupId>
     <artifactId>needle4k-jakarta</artifactId>
     <version>4.0.1</version>
     <scope>test</scope>
@@ -62,7 +61,7 @@ Add to your liking: JUnit4/5, Mockito, AssertJ, or any other testing framework
 ## Gradle dependency
 
 ```gradle
-testCompile("org.needle4k:needle4k:4.0.1")
+testCompile("io.github.needle4k:needle4k:4.0.1")
 ```
 
 ## Implementing your first JUnit5 test in Java
@@ -128,5 +127,5 @@ The rewrite has been developed by [Markus Dahm](mailto:markus.dahm@akquinet.de).
 
 ## Links
 
-* Source Code:      https://github.com/needle4j/needle4k
-* Issue Tracking:   https://github.com/needle4j/needle4k/issues
+* Source Code:      https://github.com/needle4k/needle4k
+* Issue Tracking:   https://github.com/needle4k/needle4k/issues

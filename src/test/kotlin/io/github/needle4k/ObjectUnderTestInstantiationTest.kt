@@ -1,0 +1,44 @@
+package io.github.needle4k
+
+import org.junit.Test
+import io.github.needle4k.annotation.ObjectUnderTest
+import io.github.needle4k.configuration.DefaultNeedleConfiguration
+import io.github.needle4k.injection.InjectionConfiguration
+import io.github.needle4k.reflection.ReflectionUtil
+
+@Suppress("unused")
+class ObjectUnderTestInstantiationTest {
+  @ObjectUnderTest
+  private lateinit var ejbComponent: MyEjbComponent
+
+  @ObjectUnderTest
+  private lateinit var privateConstructorClass: PrivateConstructorClass
+
+  @ObjectUnderTest
+  private lateinit var noArgsConstructorClass: NoArgsConstructorClass
+
+  private val configuration = DefaultNeedleConfiguration()
+
+  @Test(expected = ObjectUnderTestInstantiationException::class)
+  fun testInterfaceInstantiation() {
+    setInstanceIfNotNull("ejbComponent")
+  }
+
+  @Test(expected = ObjectUnderTestInstantiationException::class)
+  fun testNoArgConstructorInstantiation() {
+    setInstanceIfNotNull("noArgsConstructorClass")
+  }
+
+  @Test(expected = ObjectUnderTestInstantiationException::class)
+  fun testNoPublicConstructorInstantiation() {
+    setInstanceIfNotNull("privateConstructorClass")
+  }
+
+  private fun setInstanceIfNotNull(fieldName: String) {
+    val needleTestcase = NeedleInjector(InjectionConfiguration(configuration))
+    val field = ObjectUnderTestInstantiationTest::class.java.getDeclaredField(fieldName)
+    val objectUnderTestAnnotation: ObjectUnderTest = field.getAnnotation(ObjectUnderTest::class.java)
+
+    ReflectionUtil.invokeMethod(needleTestcase, "setInstanceIfNotNull", field, objectUnderTestAnnotation, this)
+  }
+}

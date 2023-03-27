@@ -2,7 +2,7 @@
 
 This chapter describes how to set up and configure your **needle4k** tests.
 
-Please refer to the [quickstart project](https://github.com/needle4j/needle4k-quickstart) to see more examples.
+Please refer to the [quickstart project](https://github.com/needle4k/needle4k-quickstart) to see more examples.
 
 ## Requirements
 
@@ -15,14 +15,14 @@ pom.xml file to get started with **needle4k**:
 
 ```xml
 <dependency>
-    <groupId>org.needle4k</groupId>
+    <groupId>io.github.needle4k</groupId>
     <artifactId>needle4k</artifactId>
     <scope>test</scope>
     <version>4.0.1</version>
 </dependency>
 ```
 
-Check for the most current version at the [maven central repo](http://mvnrepository.com/artifact/org.needle4k/needle4k).
+Check for the most current version at the [maven central repo](http://mvnrepository.com/artifact/io.github.needle4k/needle4k).
 
 ### Transitive dependencies
 
@@ -96,14 +96,14 @@ I.e., **needle4k** will look for a file `/needle.properties` in the classpath.
 ---------------|---------------------------------------------------------------------------------------------------------------------
  mock.provider | The fully qualified name of an implementation of the MockProvider interface. There is an implementation of EasyMock 
 
-org.needle4k.mock.EasyMockProvider and Mockito org.needle4k.mock.MockitoProvider. **The default provider is Mockito.**
+io.github.needle4k.mock.EasyMockProvider and Mockito io.github.needle4k.mock.MockitoProvider. **The default provider is Mockito.**
 
 ### Configuration of JPA, Database operation and JDBC connection
 
  Property Name        | Description                                                                                                                                                                                                                                                                                                                                                            
 ----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  persistenceUnit.name | The persistence unit name, as defined in `META-INF/persistence.xml`. **Default is "TestDataModel"**                                                                                                                                                                                                                                                                    
- db.operation         | Optional database operation on test setup and tear down. Value is the fully qualified name of an implementation of the AbstractDBOperation base class. There is an implementation for script execution org.needle4k.db.operation.ExecuteScriptOperation **It defaults to the HSQL DB command to delete all tables org.needle4k.db.operation.hsql.HSQLDeleteOperation** 
+ db.operation         | Optional database operation on test setup and tear down. Value is the fully qualified name of an implementation of the AbstractDBOperation base class. There is an implementation for script execution io.github.needle4k.db.operation.ExecuteScriptOperation **It defaults to the HSQL DB command to delete all tables io.github.needle4k.db.operation.hsql.HSQLDeleteOperation** 
 
 ### Example configuration
 
@@ -113,13 +113,13 @@ this:
 ```properties
 # When using H2 instead of HSQLDB
 db.operation=de.akquinet.jbosscc.needle.db.operation.h2.H2DeleteOperation
-custom.injection.annotations=org.needle4k.quickstart.annotations.CustomInjectionAnnotation
+custom.injection.annotations=io.github.needle4k.quickstart.annotations.CustomInjectionAnnotation
 # When using EasyMock instead of Mockito
-mock.provider=org.needle4k.mock.EasyMockProvider
+mock.provider=io.github.needle4k.mock.EasyMockProvider
 #
 # These are the default values and not need to be overridden usually
 #
-#db.operation=org.needle4k.db.operation.hsql.HSQLDeleteOperation
+#db.operation=io.github.needle4k.db.operation.hsql.HSQLDeleteOperation
 #persistenceUnit.name=TestDataModel
 #postconstruct.executestrategy=DEFAULT
 ```
@@ -129,7 +129,7 @@ mock.provider=org.needle4k.mock.EasyMockProvider
 You may also configure the framework programmatically, e.g. in order to use EasyMock instead of Mockito
 
 ```java
-import static org.needle4k.configuration.ConfigurationLoaderKt.MOCK_PROVIDER_KEY;
+import static io.github.needle4k.configuration.ConfigurationLoaderKt.MOCK_PROVIDER_KEY;
 
 public class EasyMockProviderTest
 {

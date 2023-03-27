@@ -2,12 +2,12 @@
 <!--suppress MavenPackageUpdate -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <groupId>org.needle4k</groupId>
+    <groupId>io.github.needle4k</groupId>
     <artifactId>needle4k</artifactId>
     <version>4.0.1-SNAPSHOT</version>
 
     <modelVersion>4.0.0</modelVersion>
-    <url>https://github.com/needle4j/needle4k</url>
+    <url>https://github.com/needle4k/needle4k</url>
     <inceptionYear>2023</inceptionYear>
 
     <description>

@@ -4,7 +4,7 @@ Mock objects are a useful way to write unit tests for objects that have collabor
 dynamically for dependencies of the components under test by default. Out-of-the-box
 **needle4k** has implementations for EasyMock and Mockito.
 
-To use other mock frameworks, the interface `org.needle4k.mock.MockProvider` must be implemented and configured
+To use other mock frameworks, the interface `io.github.needle4k.mock.MockProvider` must be implemented and configured
 using the "mock.provider" property in the `needle.properties` file.
 
 ## Create a Mock Object
@@ -79,7 +79,7 @@ public class AuthenticatorTest
 To use EasyMock, the EasyMockProvider has to be configured in the `needle.properties` file and the mockito library be
 present on test classpath.
 
-    mock.provider=org.needle4k.mock.EasyMockProvider
+    mock.provider=io.github.needle4k.mock.EasyMockProvider
 
 For more details about EasyMock, please refer to the [EasyMock](https://easymock.org) documentation.
 

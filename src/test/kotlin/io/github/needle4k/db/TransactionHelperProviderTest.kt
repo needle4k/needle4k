@@ -1,0 +1,28 @@
+package io.github.needle4k.db
+
+import org.junit.Assert
+import org.junit.Test
+import org.mockito.Mockito
+import io.github.needle4k.configuration.DefaultNeedleConfiguration
+import io.github.needle4k.injection.FieldTargetInformation
+import io.github.needle4k.reflection.ReflectionUtil
+import javax.inject.Inject
+import javax.persistence.EntityManager
+
+@Suppress("unused", "CdiInjectionPointsInspection")
+class TransactionHelperProviderTest {
+  private val configuration = DefaultNeedleConfiguration()
+  private val provider = TransactionHelperProvider(TransactionHelper(Mockito.mock(EntityManager::class.java)))
+
+  @Inject
+  private lateinit var helper: TransactionHelper
+
+  @Test
+  fun testVerify() {
+    val field = ReflectionUtil.getField(this.javaClass, "helper")
+    val injectionTargetInformation = FieldTargetInformation(field, field.getAnnotation(Inject::class.java))
+
+    Assert.assertTrue(provider.verify(injectionTargetInformation))
+    Assert.assertNotNull(provider.getInjectedObject(TransactionHelper::class.java))
+  }
+}

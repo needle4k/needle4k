@@ -1,0 +1,56 @@
+package io.github.needle4k.db
+
+import io.github.needle4k.NeedleSession
+import io.github.needle4k.injection.InjectionProvider
+import io.github.needle4k.injection.InjectionTargetInformation
+import java.io.PrintWriter
+import java.sql.Connection
+import java.util.logging.Logger
+import javax.sql.DataSource
+
+class DataSourceProvider : InjectionProvider<DataSource> {
+  private lateinit var needleSession: NeedleSession
+  private val dataSource: DataSource by lazy { JPADataSource(needleSession) }
+
+  override fun getInjectedObject(injectionTargetType: Class<*>) = dataSource
+
+  override fun getKey(injectionTargetInformation: InjectionTargetInformation<*>) = DataSource::class.java
+
+  override fun verify(injectionTargetInformation: InjectionTargetInformation<*>) =
+    injectionTargetInformation.injectedObjectType === DataSource::class.java
+
+  override fun initialize(needleSession: NeedleSession) {
+    this.needleSession = needleSession
+  }
+}
+
+class JPADataSource(private val needleSession: NeedleSession) : DataSource {
+  private var logWriter: PrintWriter = PrintWriter(System.out)
+
+  override fun getLogWriter() = logWriter
+
+  override fun setLogWriter(out: PrintWriter) {
+    this.logWriter = out
+  }
+
+  override fun setLoginTimeout(seconds: Int) {
+  }
+
+  override fun getLoginTimeout() = 0
+
+  override fun getParentLogger(): Logger {
+    throw UnsupportedOperationException()
+  }
+
+  override fun <T : Any> unwrap(iface: Class<T>): T {
+    throw UnsupportedOperationException()
+  }
+
+  override fun isWrapperFor(iface: Class<*>) = false
+
+  override fun getConnection(): Connection = getConnection("", "")
+
+  // Works both with Hibernate5/6
+  override fun getConnection(username: String, password: String): Connection =
+    needleSession.jpaInjectorConfiguration.hibernateSession.sessionFactory.jdbcServices.bootstrapJdbcConnectionAccess.obtainConnection()
+}
