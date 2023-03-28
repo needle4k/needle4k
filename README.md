@@ -75,7 +75,7 @@ public class UserDaoTest {
   @Inject // Inject components directly into test using standard annotations
   private EntityManager entityManager;
 
-  @ObjectUnderTest // Create testet component and inject dependencies into it
+  @ObjectUnderTest // Create tested component and inject dependencies into it
   private UserDao userDao;
 
   @Test
@@ -99,7 +99,7 @@ class UserDaoTest {
   @Inject // Inject components directly into test using standard annotations
   private lateinit var entityManager: EntityManager
 
-  @ObjectUnderTest // Create testet component and inject dependencies into it
+  @ObjectUnderTest // Create tested component and inject dependencies into it
   private lateinit var userDao: UserDao
 
   @Test
