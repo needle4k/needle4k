@@ -203,3 +203,33 @@ private Authenticator authenticator;
 @ObjectUnderTest
 private UserDao userDao;
 ```
+
+# Injection providers
+
+Programmers may add their own injection providers just by implementing the interface `InjectionProvider` and adding them via
+a `needle.properties` file or programmatically.
+
+```kotlin
+interface InjectionProvider<T> {
+  // Object to be injected
+  fun getInjectedObject(injectionTargetType: Class<*>): T?
+
+  // Key to identify instances
+  fun getKey(injectionTargetInformation: InjectionTargetInformation<*>): Any
+
+  // Check if the given injection point is feasible
+  fun verify(injectionTargetInformation: InjectionTargetInformation<*>): Boolean
+
+  // Called before the test class is initialized, defaults to empty method
+  fun initialize(needleSession: NeedleSession) {  }
+}
+```
+
+
+## Injection provider precedence
+
+1. Default injection providers, e.g. providers for standard injection annotations like `@EJB`, `@Inject`, etc.
+2. Custom injection providers, i.e. ones provided in a `needle.properties` file
+3. Injection providers added manually within the test class
+
+Manually added providers have the highest priority, i.e. they will override any other default or custom injection provider.
