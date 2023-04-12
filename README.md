@@ -24,7 +24,7 @@ There is a [quickstart project](https://github.com/needle4k/needle4k-quickstart)
 * As well Java EE as Jakarta EE are supported
 * Transaction and reflection utilities
 * needle4k can be used with [JUnit4](https://junit.org/junit4/), [JUnit5](https://junit.org/junit5/) or [TestNG](http://testng.org/).
-* Pluggable Mock providers: [EasyMock](https://easymock.org/) and [Mockito](https://mockito.org/), in particular
+* Pluggable Mock providers: [EasyMock](https://easymock.org/) and [Mockito](https://site.mockito.org/) in particular
 
 # Documentation
 
@@ -67,15 +67,15 @@ testCompile("io.github.needle4k:needle4k:4.0.1")
 ## Implementing your first JUnit5 test in Java
 
 ```java
-@ExtendWith(JPANeedleExtension.class)
+@ExtendWith(JPANeedleExtension.class) // JUnit5 extension mechanism used
 public class UserDaoTest {
-  @InjectIntoMany // Mock object will be created and injected automatically everywhere
+  @InjectIntoMany // Mock object will be created and injected everywhere automatically
   private MetricsService metricsService;
 
   @Inject // Inject components directly into test using standard annotations
   private EntityManager entityManager;
 
-  @ObjectUnderTest // Create tested component and inject dependencies into it
+  @ObjectUnderTest // Create tested component and inject dependencies into it and its dependent objects
   private UserDao userDao;
 
   @Test
@@ -91,15 +91,15 @@ public class UserDaoTest {
 ## Implementing your first JUnit5 test in Kotlin
 
 ```kotlin
-@ExtendWith(JPANeedleExtension::class)
+@ExtendWith(JPANeedleExtension::class) // JUnit5 extension mechanism used
 class UserDaoTest {
-  @InjectIntoMany // Mock object will be created and injected automatically everywhere
+  @InjectIntoMany // Mock object will be created and injected everywhere automatically
   private lateinit var metricsService: MetricsService
 
   @Inject // Inject components directly into test using standard annotations
   private lateinit var entityManager: EntityManager
 
-  @ObjectUnderTest // Create tested component and inject dependencies into it
+  @ObjectUnderTest // Create tested component and inject dependencies into it and its dependent objects
   private lateinit var userDao: UserDao
 
   @Test
