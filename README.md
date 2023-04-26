@@ -1,10 +1,4 @@
----
-title: "Isolated unit testing with needle4k"
-output:
-    html_document:
-        includes:
-            in_header: header.html
----
+<meta name="google-site-verification" content="auOvsU7wt1p_7X07rHySknnRdCmwldQRpABsB-zar_Y" />
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.needle4k/needle4k/badge.svg)](https://central.sonatype.com/search?q=needle4k)
 
 ![Banner](src/site/images/banner.png)
