@@ -9,8 +9,7 @@ import java.sql.Statement
  * Derby does not support this, unfortunately.
  */
 @Suppress("unused")
-open class DerbyDeleteOperation constructor(configuration: JPAInjectorConfiguration)
-  : AbstractDeleteOperation(configuration) {
+open class DerbyDeleteOperation(configuration: JPAInjectorConfiguration) : AbstractDeleteOperation(configuration) {
   @Throws(SQLException::class)
   override fun setReferentialIntegrity(enable: Boolean, statement: Statement) {
   }

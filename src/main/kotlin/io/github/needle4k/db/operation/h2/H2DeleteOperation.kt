@@ -9,7 +9,7 @@ import java.sql.Statement
  * Delete everything from the DB: This cannot be done with the JPA, because the
  * order of deletion matters. Instead we directly use a JDBC connection.
  */
-@Suppress("unused")
+@Suppress("unused", "SqlNoDataSourceInspection")
 open class H2DeleteOperation(configuration: JPAInjectorConfiguration) : AbstractDeleteOperation(configuration) {
   @Throws(SQLException::class)
   override fun setReferentialIntegrity(enable: Boolean, statement: Statement) {
