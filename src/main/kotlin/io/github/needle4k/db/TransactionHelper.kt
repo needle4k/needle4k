@@ -3,7 +3,6 @@
 
 package io.github.needle4k.db
 
-import java.util.*
 import javax.persistence.EntityManager
 
 /**

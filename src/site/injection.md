@@ -225,7 +225,6 @@ interface InjectionProvider<T> {
 }
 ```
 
-
 ## Injection provider precedence
 
 1. Default injection providers, e.g. providers for standard injection annotations like `@EJB`, `@Inject`, etc.

@@ -200,3 +200,41 @@ public class UserDaoTest extends AbstractNeedleTestcase
   }
 }
 ```
+
+## Using plain needle4k
+
+It is also possible to use **needle4k** just as an injection framework like CDI without dependencies to a testing framework.
+
+```kotlin
+class NeedlePlainMain {
+  private val needlePlain = NeedlePlain(this)
+
+  @Inject
+  private lateinit var transactionHelper: TransactionHelper
+
+  init {
+    needlePlain.start()
+  }
+
+  fun test() {
+    val myEntity = Person().apply { myName = "My Name" }
+    transactionHelper.saveObject(myEntity)
+
+    val fromDb = transactionHelper.loadObject(Person::class.java, myEntity.id)
+
+    assert(myEntity !== fromDb)
+  }
+
+  fun stop() = needlePlain.stop()
+
+  companion object {
+    @JvmStatic
+    fun main(args: Array<String>) {
+      val needlePlainMain = NeedlePlainMain()
+
+      needlePlainMain.test()
+      needlePlainMain.stop()
+    }
+  }
+}
+```

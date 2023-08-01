@@ -10,7 +10,7 @@ import java.sql.Statement
  * order of deletion matters. Instead we directly use a JDBC connection.
  */
 @Suppress("unused")
-open class H2DeleteOperation constructor(configuration: JPAInjectorConfiguration) : AbstractDeleteOperation(configuration) {
+open class H2DeleteOperation(configuration: JPAInjectorConfiguration) : AbstractDeleteOperation(configuration) {
   @Throws(SQLException::class)
   override fun setReferentialIntegrity(enable: Boolean, statement: Statement) {
     val command = "SET REFERENTIAL_INTEGRITY " + enable.toString().uppercase()
