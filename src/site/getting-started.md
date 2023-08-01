@@ -207,14 +207,10 @@ It is also possible to use **needle4k** just as an injection framework like CDI 
 
 ```kotlin
 class NeedlePlainMain {
-  private val needlePlain = NeedlePlain(this)
+  private val needle = NeedlePlain(this).start()
 
   @Inject
   private lateinit var transactionHelper: TransactionHelper
-
-  init {
-    needlePlain.start()
-  }
 
   fun test() {
     val myEntity = Person().apply { myName = "My Name" }
@@ -230,10 +226,10 @@ class NeedlePlainMain {
   companion object {
     @JvmStatic
     fun main(args: Array<String>) {
-      val needlePlainMain = NeedlePlainMain()
+      val needle = NeedlePlainMain()
 
-      needlePlainMain.test()
-      needlePlainMain.stop()
+      needle.test()
+      needle.stop()
     }
   }
 }

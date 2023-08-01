@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 @Suppress("CdiInjectionPointsInspection")
 class NeedlePlainMain {
-  private val needlePlain = NeedlePlain(this)
+  private val needle = NeedlePlain(this)
 
   @ObjectUnderTest
   private lateinit var component: CustomInjectionTestComponent
@@ -17,7 +17,7 @@ class NeedlePlainMain {
   private lateinit var transactionHelper: TransactionHelper
 
   init {
-    needlePlain.start()
+    needle.start()
   }
 
   fun test() {
@@ -29,17 +29,17 @@ class NeedlePlainMain {
     assert(myEntity !== fromDb)
   }
 
-  fun stop() = needlePlain.stop()
+  fun stop() = needle.stop()
 
   companion object {
     @JvmStatic
     fun main(args: Array<String>) {
-      val needlePlainMain = NeedlePlainMain()
+      val needle = NeedlePlainMain()
 
-      assert(needlePlainMain::component.isInitialized) { "Component of $needlePlainMain has not been initialized" }
+      assert(needle::component.isInitialized) { "Component of $needle has not been initialized" }
 
-      needlePlainMain.test()
-      needlePlainMain.stop()
+      needle.test()
+      needle.stop()
     }
   }
 }
