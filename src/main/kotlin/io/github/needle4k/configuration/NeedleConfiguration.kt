@@ -31,6 +31,8 @@ val WELL_KNOWN_INJECTION_ANNOTATION_CLASSES = listOf(
   "jakarta.persistence.PersistenceContext",
   "javax.persistence.PersistenceUnit",
   "jakarta.persistence.PersistenceUnit",
+  "javax.ws.rs.core.Context",
+  "jakarta.ws.rs.core.Context",
   "org.picocontainer.annotations.Inject",
   "org.springframework.beans.factory.annotation.Autowired"
 )
