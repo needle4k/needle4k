@@ -1,17 +1,16 @@
 package io.github.needle4k.postconstruct
 
-import org.easymock.EasyMock
-import org.easymock.EasyMock.replay
-import org.easymock.EasyMock.verify
-import org.junit.Assert.assertEquals
-import org.junit.Test
 import io.github.needle4k.NeedleContext
+import io.github.needle4k.annotation.InjectIntoMany
 import io.github.needle4k.annotation.ObjectUnderTest
 import io.github.needle4k.configuration.DefaultNeedleConfiguration
 import io.github.needle4k.configuration.POST_CONSTRUCT_EXECUTE_STRATEGY
 import io.github.needle4k.configuration.PostConstructExecuteStrategy
 import io.github.needle4k.injection.InjectionConfiguration
 import io.github.needle4k.reflection.ReflectionUtil
+import org.junit.Assert.assertEquals
+import org.junit.Test
+import org.mockito.Mockito
 import java.lang.reflect.Method
 import javax.annotation.PostConstruct
 
@@ -21,9 +20,6 @@ import javax.annotation.PostConstruct
  * @author Jan Galinski, Holisticon AG (jan.galinski@holisticon.de)
  */
 class PostConstructProcessorTest {
-  private val runnableMock = EasyMock.createStrictMock<Runnable>(Runnable::class.java)
-  private val secondRunnableMock = EasyMock.createStrictMock<Runnable>(Runnable::class.java)
-
   /**
    * a dummy class without init()
    */
@@ -35,7 +31,7 @@ class PostConstructProcessorTest {
   open inner class B : A() {
     @PostConstruct
     protected fun init() {
-      runnableMock.run()
+      service.run()
     }
   }
 
@@ -45,7 +41,7 @@ class PostConstructProcessorTest {
   open inner class C : B() {
     @PostConstruct
     fun initC() {
-      secondRunnableMock.run()
+      service.run()
     }
   }
 
@@ -56,6 +52,9 @@ class PostConstructProcessorTest {
   // This Processor test does not use the NeedleRule!
   @ObjectUnderTest(postConstruct = true)
   private val isConfiguredForPostConstructionButDoesNotContainMethod: A = A()
+
+  @InjectIntoMany
+  private val service = Mockito.mock(Runnable::class.java)
 
   // This Processor test does not use the NeedleRule!
   @ObjectUnderTest(postConstruct = true)
@@ -77,15 +76,13 @@ class PostConstructProcessorTest {
       objectUnderTestAnnotation.id,
       isConfiguredForPostConstructionButDoesNotContainMethod, objectUnderTestAnnotation
     )
-    replay(runnableMock)
+
     postConstructProcessor.process(context)
-    verify(runnableMock)
+    Mockito.verify(service, Mockito.times(0)).run()
   }
 
   @Test
   fun testWithPostConstructMethod() {
-    runnableMock.run()
-    replay(runnableMock)
     val context = NeedleContext(this, needleConfiguration)
     val objectUnderTestAnnotation = getObjectUnderTestAnnotation("isConfiguredForPostConstruction")
     context.addObjectUnderTest(
@@ -93,12 +90,11 @@ class PostConstructProcessorTest {
       objectUnderTestAnnotation
     )
     postConstructProcessor.process(context)
-    verify(runnableMock)
+    Mockito.verify(service, Mockito.times(1)).run()
   }
 
   @Test
   fun testWithPostConstructMethod_NotConfigured() {
-    replay(runnableMock)
     val context = NeedleContext(this, needleConfiguration)
     val objectUnderTestAnnotation = getObjectUnderTestAnnotation("isNotConfiguredForPostConstruction")
     context.addObjectUnderTest(
@@ -106,14 +102,11 @@ class PostConstructProcessorTest {
       objectUnderTestAnnotation
     )
     postConstructProcessor.process(context)
-    verify(runnableMock)
+    Mockito.verify(service, Mockito.times(0)).run()
   }
 
   @Test
   fun shouldCallPostConstructOnInstanceAndParent() {
-    runnableMock.run()
-    secondRunnableMock.run()
-    replay(runnableMock, secondRunnableMock)
     val context = NeedleContext(this, needleConfiguration)
     val objectUnderTestAnnotation = getObjectUnderTestAnnotation("instanceAndParentClassHavePostconstructMethods")
     context.addObjectUnderTest(
@@ -121,7 +114,7 @@ class PostConstructProcessorTest {
       objectUnderTestAnnotation
     )
     postConstructProcessor.process(context)
-    verify(runnableMock, secondRunnableMock)
+    Mockito.verify(service, Mockito.times(2)).run()
   }
 
   @Test
@@ -133,7 +126,6 @@ class PostConstructProcessorTest {
 
   @Test
   fun shouldExecuteAlways() {
-    runnableMock.run()
     val context = NeedleContext(this, needleConfiguration)
     val objectUnderTestAnnotation = getObjectUnderTestAnnotation("isNotConfiguredForPostConstruction")
     context.addObjectUnderTest(
@@ -141,10 +133,9 @@ class PostConstructProcessorTest {
       objectUnderTestAnnotation
     )
 
-    replay(runnableMock)
     needleConfiguration.configurationProperties[POST_CONSTRUCT_EXECUTE_STRATEGY] = PostConstructExecuteStrategy.ALWAYS.name
     postConstructProcessor.process(context)
-    verify(runnableMock)
+    Mockito.verify(service, Mockito.times(1)).run()
   }
 
   @Test
@@ -158,9 +149,8 @@ class PostConstructProcessorTest {
 
     needleConfiguration.configurationProperties[POST_CONSTRUCT_EXECUTE_STRATEGY] = PostConstructExecuteStrategy.NEVER.name
 
-    replay(runnableMock)
     postConstructProcessor.process(context)
-    verify(runnableMock)
+    Mockito.verify(service, Mockito.times(0)).run()
   }
 
   private fun getObjectUnderTestAnnotation(fieldName: String) =

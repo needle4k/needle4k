@@ -1,11 +1,11 @@
 package io.github.needle4k.postconstruct
 
-import org.junit.Assert
-import org.junit.Rule
-import org.junit.Test
 import io.github.needle4k.annotation.InjectIntoMany
 import io.github.needle4k.annotation.ObjectUnderTest
 import io.github.needle4k.junit4.NeedleRule
+import org.junit.Assert.assertEquals
+import org.junit.Rule
+import org.junit.Test
 
 class PostConstructInjectIntoTest {
   @Rule
@@ -22,9 +22,6 @@ class PostConstructInjectIntoTest {
 
   @Test
   fun testPostConstruct_InjectIntoMany() {
-    dependentComponent.count()
-
-    // expect one call in postConstruct of ComponentWithPrivatePostConstruct, one call here
-    Assert.assertEquals(dependentComponent.counter, 2)
+    assertEquals("expect call in postConstruct of ComponentWithPrivatePostConstruct", 1, dependentComponent.counter)
   }
 }
