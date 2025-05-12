@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <groupId>io.github.needle4k</groupId>
     <artifactId>needle4k</artifactId>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>4.0.3</version>
 
     <modelVersion>4.0.0</modelVersion>
     <url>https://github.com/needle4k/needle4k</url>
@@ -59,7 +59,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <kotlin.version>1.9.22</kotlin.version>
+        <kotlin.version>2.1.20</kotlin.version>
         <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
 
         <slf4j.version>2.0.6</slf4j.version>
@@ -72,8 +72,8 @@
         <testng.version>7.7.1</testng.version>
         <testng.junitsupport.version>1.0.4</testng.junitsupport.version>
         <easymock.version>5.1.0</easymock.version>
-        <mockito.version>5.2.0</mockito.version>
-        <mockito.kotlin.version>4.1.0</mockito.kotlin.version>
+        <mockito.version>5.15.2</mockito.version>
+        <mockito.kotlin.version>5.4.0</mockito.kotlin.version>
         <assertj.version>3.24.2</assertj.version>
         <hsqldb.version>2.7.1</hsqldb.version>
         <h2.version>2.1.214</h2.version>
@@ -382,7 +382,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M9</version>
+                    <version>3.5.2</version>
 
                     <configuration>
                         <reuseForks>true</reuseForks>
@@ -416,21 +416,6 @@
         </license>
     </licenses>
 
-    <!--
-        https://central.sonatype.org/publish/publish-maven/
-    -->
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <profiles>
         <profile>
             <id>release</id>
@@ -440,7 +425,7 @@
                     <plugin>
                         <groupId>org.jetbrains.dokka</groupId>
                         <artifactId>dokka-maven-plugin</artifactId>
-                        <version>${kotlin.version}</version>
+                        <version>2.0.0</version>
 
                         <executions>
                             <execution>
@@ -453,15 +438,12 @@
                     </plugin>
 
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.13</version>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.7.0</version>
                         <extensions>true</extensions>
-
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <publishingServerId>central</publishingServerId>
                         </configuration>
                     </plugin>
 
@@ -469,7 +451,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.2.7</version>
 
                         <configuration>
                             <gpgArguments>
